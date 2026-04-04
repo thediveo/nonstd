@@ -47,10 +47,10 @@ var _ = Describe("sorting", func() {
 		Entry(nil, []string{"foo", "bar"}, []string{"bar", "foo"}),
 	)
 
-	DescribeTable("sorting a copy using a compare function",
+	DescribeTable("stable sorting a copy using a compare function",
 		func(slice []string, expected []string) {
 			original := slices.Clone(slice)
-			actual := SortedCopyFunc(slice, func(a, b string) int {
+			actual := StableSortedCopyFunc(slice, func(a, b string) int {
 				return strings.Compare(a[:3], b[:3])
 			})
 			Expect(actual).To(ConsistOf(expected), "incorrectly sorted")
