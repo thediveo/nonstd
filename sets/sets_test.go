@@ -1,4 +1,4 @@
-// Copyright 2023, 2025 Harald Albrecht.
+// Copyright 2026 Harald Albrecht.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License. You may obtain a copy
@@ -12,28 +12,30 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package xslices
+package sets
 
 import (
-	"reflect"
-
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("wrapping into reflect values", func() {
+var _ = Describe("sets", func() {
 
-	It("wraps a slice into reflect.Value", func() {
-		rvs := ReflectValues([]string{"foo", "bar"})
-		Expect(rvs).To(HaveLen(2))
-		Expect(rvs).To(HaveEach(HaveField("Kind()", reflect.String)))
-		Expect(rvs[0]).To(HaveField("String()", "foo"))
-		Expect(rvs[1]).To(HaveField("String()", "bar"))
+	It("returns true or false, depending on an element in the set or not", func() {
+		s := New(42)
+		Expect(s.Contains(666)).To(BeFalse())
+		Expect(s.Contains(42)).To(BeTrue())
 	})
 
-	It("preserves nil-ness", func() {
-		var zero []int
-		Expect(ReflectValues(zero)).To(BeNil())
+	It("returns the correct textual representation", func() {
+		s := New(42)
+		s.Add(666)
+		Expect(s.String()).To(SatisfyAny(
+			Equal("[42 666]"),
+			Equal("[666 42]")))
+
+		s.Delete(666)
+		Expect(s.Elements()).To(ConsistOf(42))
 	})
 
 })

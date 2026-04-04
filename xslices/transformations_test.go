@@ -31,9 +31,31 @@ var _ = Describe("wrapping into reflect values", func() {
 			Equal([]string{"FOO", "BAR"}))
 	})
 
+	It("preserves slice nil-ness", func() {
+		var zero []int
+		Expect(Map(zero, func(e int) int { return e })).To(BeNil())
+	})
+
 	It("transforms a sequence", func() {
 		Expect(slices.Collect(MapIter(slices.Values(wisdoms), strings.ToUpper))).To(
 			Equal([]string{"FOO", "BAR"}))
+	})
+
+	It("handles aborting a sequence", func() {
+		var nexti int
+		for i := range MapIter(func(yield func(int) bool) {
+			for {
+				if !yield(nexti) {
+					return
+				}
+				nexti++
+			}
+		},
+			func(e int) int { return e + 1 }) {
+			Expect(i).To(Equal(1))
+			break
+		}
+		Expect(nexti).To(Equal(0))
 	})
 
 })
