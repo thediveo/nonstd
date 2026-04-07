@@ -22,40 +22,48 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("wrapping into reflect values", func() {
+var _ = Describe("mapping slices", func() {
 
 	var wisdoms = []string{"foo", "bar"}
 
-	It("transforms a slice", func() {
-		Expect(Map(wisdoms, strings.ToUpper)).To(
-			Equal([]string{"FOO", "BAR"}))
+	When("transforming a slice into another", func() {
+
+		It("transforms a slice", func() {
+			Expect(Map(wisdoms, strings.ToUpper)).To(
+				Equal([]string{"FOO", "BAR"}))
+		})
+
+		It("preserves slice nil-ness", func() {
+			var zero []int
+			Expect(Map(zero, func(e int) int { return e })).To(BeNil())
+		})
+
 	})
 
-	It("preserves slice nil-ness", func() {
-		var zero []int
-		Expect(Map(zero, func(e int) int { return e })).To(BeNil())
-	})
+	When("transforming sequences", func() {
 
-	It("transforms a sequence", func() {
-		Expect(slices.Collect(MapIter(slices.Values(wisdoms), strings.ToUpper))).To(
-			Equal([]string{"FOO", "BAR"}))
-	})
+		It("transforms a sequence", func() {
+			Expect(slices.Collect(MapIter(slices.Values(wisdoms), strings.ToUpper))).To(
+				Equal([]string{"FOO", "BAR"}))
+		})
 
-	It("handles aborting a sequence", func() {
-		var nexti int
-		for i := range MapIter(func(yield func(int) bool) {
-			for {
-				if !yield(nexti) {
-					return
+		It("correctly aborts a sequence", func() {
+			var nexti int
+			for i := range MapIter(func(yield func(int) bool) {
+				for {
+					if !yield(nexti) {
+						return
+					}
+					nexti++
 				}
-				nexti++
+			},
+				func(e int) int { return e + 1 }) {
+				Expect(i).To(Equal(1))
+				break
 			}
-		},
-			func(e int) int { return e + 1 }) {
-			Expect(i).To(Equal(1))
-			break
-		}
-		Expect(nexti).To(Equal(0))
+			Expect(nexti).To(Equal(0))
+		})
+
 	})
 
 })
