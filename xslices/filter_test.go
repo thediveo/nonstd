@@ -1,4 +1,4 @@
-// Copyright 2024 Harald Albrecht.
+// Copyright 2026 Harald Albrecht.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // use this file except in compliance with the License. You may obtain a copy
@@ -12,34 +12,27 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package xiter_test
+package xslices_test
 
 import (
-	"maps"
-	"slices"
+	"strings"
 
-	"github.com/thediveo/nonstd/xiter"
+	"github.com/thediveo/nonstd/xslices"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("swapping sequence (k,v) pairs", func() {
+var _ = Describe("filtering slices", func() {
 
-	It("swaps each pair", func() {
-		m := maps.Collect(xiter.Swap(slices.All([]string{"foo", "bar"})))
-		Expect(m).To(HaveLen(2))
-		Expect(m).To(HaveKeyWithValue("foo", 0))
-		Expect(m).To(HaveKeyWithValue("bar", 1))
+	It("filters values", func() {
+		s := xslices.Filter([]string{"micro", "microslop", "slopslop", "foo"},
+			func(v string) bool { return !strings.Contains(v, "slop") })
+		Expect(s).To(Equal([]string{"micro", "foo"}))
 	})
 
-	It("aborts", func() {
-		count := 0
-		for range xiter.Swap(slices.All([]string{"foo", "bar"})) {
-			count++
-			break
-		}
-		Expect(count).To(Equal(1))
+	It("preserves nil-ness", func() {
+		Expect(xslices.Filter[[]string](nil, func(string) bool { return true })).To(BeNil())
 	})
 
 })
