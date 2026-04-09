@@ -17,8 +17,8 @@ _distractive_) to sully the stdlib. Of course, your mileage will vary widely.
 - `xslices`: just `All` the values (no indices please), `Map` and `MapIter` for
   transforming slices, sorted slice copies, and dealing with `[]any`
   converstions. 
-- `xstrings`: join string slice elements, ensuring there's only one space
-  between them.
+- `xstrings`: Cut a string at the first white space. Join string slice elements,
+  ensuring there's only one space between them.
 
 It is on purpose a much smaller and non-comprehensive collection compared to all
 the existing kitchen sinks out there.
