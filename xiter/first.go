@@ -19,8 +19,8 @@ import "iter"
 // FirstOk returns the first element produced by the it iterator as well as
 // true; otherwise, if the iterator produced no values, it returns the zero
 // value and false.
-func FirstOk[V any](it iter.Seq[V]) (V, bool) {
-	for v := range it {
+func FirstOk[V any](seq iter.Seq[V]) (V, bool) {
+	for v := range seq {
 		return v, true
 	}
 	var zero V
@@ -30,8 +30,8 @@ func FirstOk[V any](it iter.Seq[V]) (V, bool) {
 // First2Ok returns the first (K, V) element produced by the it iterator as well
 // as true; otherwise, if the iterator produced no values, it returns zero K and
 // V, as well as false.
-func First2Ok[K, V any](it iter.Seq2[K, V]) (K, V, bool) {
-	for k, v := range it {
+func First2Ok[K, V any](seq iter.Seq2[K, V]) (K, V, bool) {
+	for k, v := range seq {
 		return k, v, true
 	}
 	var zerok K

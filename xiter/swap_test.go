@@ -18,9 +18,10 @@ import (
 	"maps"
 	"slices"
 
+	"github.com/thediveo/nonstd/xiter"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/thediveo/nonstd/xiter"
 )
 
 var _ = Describe("swapping sequence (k,v) pairs", func() {
