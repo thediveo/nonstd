@@ -19,6 +19,8 @@ _distractive_) to sully the stdlib. Of course, your mileage will vary widely.
 - `xmaps`: `Collect`, `CollectT` where the same key maps to multiple values.
 - `xslices`:
   - just `All` the values without the pesky indices please.
+  - `Filter` returning a new slice with only the elements passing the test
+    function.
   - `Map` and `MapIter` for transforming slices, sorted slice copies.
   - `Any` to convert slices of other types into `[]any` slices.
   - `ReflectValues` to convert an slice into a slice of `Reflect.Value`s.
