@@ -5,6 +5,18 @@
 		}
 	],
 	"settings": {
+		"go.lintTool": "golangci-lint-v2",
+		"go.vetOnSave": "workspace",
+		"gopls": {
+			"ui.semanticTokens": true,
+			// https://github.com/golang/vscode-go/blob/master/docs/settings.md#uidiagnosticanalyses
+			"ui.diagnostic.analyses": {
+			},
+			// https://github.com/golang/vscode-go/blob/master/docs/settings.md#uicodelenses
+			"ui.codelenses": {
+				"vulncheck": true,
+			}
+		},
 		"markdown.styles": [
 			"./.vscode/markdown-preview.css"
 		]
