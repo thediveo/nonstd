@@ -12,26 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package xslices
+package xiter
 
 import "iter"
 
-// Map transforms the elements of the passed slice using the specified function,
-// returning a new slice of the transformed elements. It preserves nil-ness.
-func Map[S ~[]E, E, F any](s S, fn func(e E) F) []F {
-	if s == nil {
-		return nil
-	}
-	r := make([]F, len(s))
-	for idx, e := range s {
-		r[idx] = fn(e)
-	}
-	return r
-}
-
-// MapIter transforms the passed sequence into a different sequence using the
+// Map transforms the passed sequence into a different sequence using the
 // specified function. It preserves nil-ness.
-func MapIter[E, F any](seq iter.Seq[E], fn func(e E) F) iter.Seq[F] {
+func Map[E, F any](seq iter.Seq[E], fn func(e E) F) iter.Seq[F] {
 	return func(yield func(F) bool) {
 		for e := range seq {
 			if !yield(fn(e)) {

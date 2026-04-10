@@ -10,27 +10,30 @@ A small collection of generic little helpers, deemed to be too "abstractive" (a
 [portmaneau](https://en.wikipedia.org/wiki/Portmanteau) of _abstract_ and
 _distractive_) to sully the stdlib. Of course, your mileage will vary widely.
 
+`nonstd` is on purpose a much smaller and much less comprehensive collection
+compared to all the existing kitchen sinks out there.
+
 - `sets` when you're tired of `map[T]bool` and especially `map[T]struct{}` when
   just needing a set of `T`s.
 - `xiter`:
   - `Filter` and `Filter2` to filter sequences.
   - `FirstOk` and `First2Ok`: get the first element of a sequence.
+  - `Map` transforms sequences.
   - `Swap` (k,v) into (v,k) sequences.
 - `xmaps`: `Collect`, `CollectT` where the same key maps to multiple values.
 - `xslices`:
   - just `All` the values without the pesky indices please.
   - `Filter` returning a new slice with only the elements passing the test
     function.
-  - `Map` and `MapIter` for transforming slices, sorted slice copies.
+  - `Map` transforms slices.
   - `Any` to convert slices of other types into `[]any` slices.
   - `ReflectValues` to convert an slice into a slice of `Reflect.Value`s.
+  - `SortedCopy`, `SortedCopyFunc` and `StableSortedCopyFunc` sort copies of
+    slices.
 - `xstrings`:
   - `CutWhitespace` a string at the first white space.
   - `JoinSpaced` for joining string slice elements, ensuring there's only one
     space between them.
-
-It is on purpose a much smaller and non-comprehensive collection compared to all
-the existing kitchen sinks out there.
 
 # DevContainer
 
