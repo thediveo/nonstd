@@ -15,6 +15,9 @@
 package xslices
 
 import (
+	"maps"
+	"slices"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
@@ -23,11 +26,12 @@ var _ = Describe("collecting key-values", func() {
 
 	It("collects into separate slices", func() {
 		seq := func(yield func(int, string) bool) {
-			for k, v := range map[int]string{
+			m := map[int]string{
 				42:  "42",
 				666: "666",
-			} {
-				if !yield(k, v) {
+			}
+			for _, k := range SortedCopy(slices.Collect(maps.Keys(m))) {
+				if !yield(k, m[k]) {
 					return
 				}
 			}
