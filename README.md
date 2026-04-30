@@ -38,6 +38,7 @@ compared to all the existing kitchen sinks out there.
 - `xslog`:
   - `Lazy` returns a `slog.Attr` that evaluates its value via a function only
     when actually needed.
+  - `Error` returns an "err"-named `slog.Attr` with the passed error value.
 
 # DevContainer
 
