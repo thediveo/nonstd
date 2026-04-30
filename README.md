@@ -35,6 +35,9 @@ compared to all the existing kitchen sinks out there.
   - `CutWhitespace` a string at the first white space.
   - `JoinSpaced` for joining string slice elements, ensuring there's only one
     space between them.
+- `xslog`:
+  - `Lazy` returns a `slog.Attr` that evaluates its value via a function only
+    when actually needed.
 
 # DevContainer
 
