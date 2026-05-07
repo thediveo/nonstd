@@ -20,6 +20,7 @@ compared to all the existing kitchen sinks out there.
   - `FirstOk` and `First2Ok`: get the first element of a sequence.
   - `Map` transforms sequences.
   - `Swap` (k,v) into (v,k) sequences.
+  - `Keys` or `Values`-only from an `iter.Seq2`.
 - `xmaps`: `Collect`, `CollectT` where the same key maps to multiple values.
 - `xslices`:
   - just `All` the values without the pesky indices please.
