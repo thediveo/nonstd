@@ -13,7 +13,6 @@
         "ghcr.io/thediveo/devcontainer-features/goreportcard:0": {},
         "ghcr.io/thediveo/devcontainer-features/go-mod-upgrade:0": {},
         "ghcr.io/thediveo/devcontainer-features/gocover:0": {
-            "num-programs": "1",    // do never run package-level tests in parallel
             "race": true,           // enable race detector
             "verbose": true,
             "html": true            // generate coverage.html
