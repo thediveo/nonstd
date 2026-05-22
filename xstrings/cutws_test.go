@@ -15,9 +15,10 @@
 package xstrings_test
 
 import (
+	"github.com/thediveo/nonstd/xstrings"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/thediveo/nonstd/xstrings"
 )
 
 var _ = Describe("cutting at white spaces", func() {
