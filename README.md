@@ -31,6 +31,7 @@ compared to all the existing kitchen sinks out there.
   - `ReflectValues` to convert an slice into a slice of `Reflect.Value`s.
   - `SortedCopy`, `SortedCopyFunc` and `StableSortedCopyFunc` sort copies of
     slices.
+  - `ReverseCopy` reverses the copy of a slice.
   - `Slice` turns a list of uniformly typed elements into a slice.
 - `xstrings`:
   - `CutWhitespace` a string at the first white space.
