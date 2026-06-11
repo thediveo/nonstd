@@ -21,6 +21,8 @@ compared to all the existing kitchen sinks out there.
   - `Map` transforms sequences.
   - `Swap` (k,v) into (v,k) sequences.
   - `Keys` or `Values`-only from an `iter.Seq2`.
+  - `AllUnzeros` and `WithoutNils` iterate over only the non-zero elements of a
+    sequence. 
 - `xmaps`: `Collect`, `CollectT` where the same key maps to multiple values.
 - `xslices`:
   - just `All` the values without the pesky indices please.
@@ -34,9 +36,10 @@ compared to all the existing kitchen sinks out there.
   - `ReverseCopy` reverses the copy of a slice.
   - `Slice` turns a list of uniformly typed elements into a slice.
 - `xstrings`:
-  - `CutWhitespace` a string at the first white space.
+  - `CutWhitespace` cuts a string at the first white space.
   - `JoinSpaced` for joining string slice elements, ensuring there's only one
     space between them.
+  - `AllUnzeros` iterates over all non-zero values of the slice.
 - `xslog`:
   - `Lazy` returns a `slog.Attr` that evaluates its value via a function only
     when actually needed.

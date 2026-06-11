@@ -12,33 +12,20 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package xslices
+package xiter
 
 import "iter"
 
-// AllValues iterates over all element values in the slice in the usual order.
-func AllValues[S ~[]E, E any](s S) iter.Seq[E] {
-	return func(yield func(E) bool) {
-		for _, e := range s {
-			if !yield(e) {
-				return
-			}
-		}
-	}
+// AllUnzeros iterates over all non-zero, or “unzero”, values in the passed
+// sequence.
+func AllUnzeros[V comparable](seq iter.Seq[V]) iter.Seq[V] {
+	var zero V
+	return Filter(seq, func(v V) bool { return v != zero })
 }
 
-// AllUnzeros iterates over all non-zero, or “unzero”, values in the passed
-// slice.
-func AllUnzeros[S ~[]E, E comparable](s S) iter.Seq[E] {
-	return func(yield func(E) bool) {
-		var zero E
-		for _, v := range s {
-			if v == zero {
-				continue
-			}
-			if !yield(v) {
-				return
-			}
-		}
-	}
+// WithoutNils is the pointer-restricted twin to AllUnzeros and exists solely
+// for readability as an alias for AllUnzeros. No pun intended on people named
+// Nils.
+func WithoutNils[E any, P ~*E](seq iter.Seq[P]) iter.Seq[P] {
+	return AllUnzeros(seq)
 }
