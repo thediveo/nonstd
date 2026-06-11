@@ -21,24 +21,50 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("all slice values", func() {
+var _ = Describe("(almost) all slice values", func() {
 
-	It("correctly iterates over all slice values", func() {
-		s := []string{"foo", "bar", "baz"}
-		Expect(slices.Collect(AllValues(s))).To(Equal(s))
+	Context("any elements", func() {
+
+		It("correctly iterates over all slice values", func() {
+			s := []string{"foo", "bar", "baz"}
+			Expect(slices.Collect(AllValues(s))).To(Equal(s))
+		})
+
+		It("aborts iterating over all slice values", func() {
+			num := 0
+			for range AllValues([]string{"foo", "bar", "baz"}) {
+				num++
+				break
+			}
+			Expect(num).To(Equal(1))
+		})
+
+		It("handles nil slices", func() {
+			Expect(slices.Collect(AllValues[[]string](nil))).To(BeEmpty())
+		})
+
 	})
 
-	It("aborts iterating over all slice values", func() {
-		num := 0
-		for range AllValues([]string{"foo", "bar", "baz"}) {
-			num++
-			break
-		}
-		Expect(num).To(Equal(1))
-	})
+	Context("non-zero elements", func() {
 
-	It("handles nil slices", func() {
-		Expect(slices.Collect(AllValues[[]string](nil))).To(BeEmpty())
+		It("yields only non-zero elements", func() {
+			Expect(slices.Collect(AllUnzeros([]string{"foo", "", "bar", ""}))).
+				To(Equal([]string{"foo", "bar"}))
+		})
+
+		It("aborts iterating", func() {
+			num := 0
+			for range AllUnzeros([]string{"", "foo", "bar"}) {
+				num++
+				break
+			}
+			Expect(num).To(Equal(1))
+		})
+
+		It("handles nil slices", func() {
+			Expect(AllUnzeros[[]string](nil)).To(BeEmpty())
+		})
+
 	})
 
 })
