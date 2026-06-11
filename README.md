@@ -39,6 +39,7 @@ compared to all the existing kitchen sinks out there.
   - `CutWhitespace` cuts a string at the first white space.
   - `JoinSpaced` for joining string slice elements, ensuring there's only one
     space between them.
+  - `Truncate` a string after a certain number of runes.
   - `AllUnzeros` iterates over all non-zero values of the slice.
 - `xslog`:
   - `Lazy` returns a `slog.Attr` that evaluates its value via a function only
