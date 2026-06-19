@@ -45,6 +45,8 @@ compared to all the existing kitchen sinks out there.
   - `Lazy` returns a `slog.Attr` that evaluates its value via a function only
     when actually needed.
   - `Error` returns an "err"-named `slog.Attr` with the passed error value.
+- `xatomic`:
+  - `Value[T]` provides atomic _values_ on top of `atomic.Pointer`s.
 
 # DevContainer
 
