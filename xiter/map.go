@@ -27,3 +27,15 @@ func Map[E, F any](seq iter.Seq[E], fn func(e E) F) iter.Seq[F] {
 		}
 	}
 }
+
+// Map2 transforms the passed sequence into a different sequence using the
+// specified function. It preserves nil-ness.
+func Map2[K, V, X, Y any](seq iter.Seq2[K, V], fn func(k K, v V) (X, Y)) iter.Seq2[X, Y] {
+	return func(yield func(X, Y) bool) {
+		for k, v := range seq {
+			if !yield(fn(k, v)) {
+				break
+			}
+		}
+	}
+}

@@ -29,7 +29,7 @@ func Collect[K comparable, V any](seq iter.Seq2[K, V]) map[K][]V {
 	return m
 }
 
-// CollectT key-value paris from a seq into a new map with the specified value
+// CollectT key-value pairs from a seq into a new map with the specified value
 // (slice) type T, aggregating values for the same key in slice type T. In
 // contrast to [Collect], CollectT allows explicitly specifying the slice type T
 // the map should use for aggregating multiple values for the same key, as Go
