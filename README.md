@@ -3,7 +3,7 @@
 [![PkgGoDev](https://img.shields.io/badge/-reference-blue?logo=go&logoColor=white&labelColor=505050)](https://pkg.go.dev/github.com/thediveo/nonstd)
 [![License](https://img.shields.io/github/license/thediveo/nonstd)](https://img.shields.io/github/license/thediveo/nonstd)
 ![build and test](https://github.com/thediveo/nonstd/actions/workflows/buildandtest.yaml/badge.svg?branch=master)
-![Coverage](https://img.shields.io/badge/Coverage-99.4%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-99.0%25-brightgreen)
 
 A small collection of generic little helpers, deemed to be too "abstractive" (a
 [portmaneau](https://en.wikipedia.org/wiki/Portmanteau) of _abstract_ and
