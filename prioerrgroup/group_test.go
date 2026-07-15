@@ -20,7 +20,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thediveo/testily/chans"
 	"github.com/thediveo/testily/goroutines"
 
 	"github.com/thediveo/nonstd/prioerrgroup"
@@ -46,7 +45,7 @@ var _ = Describe("prioritized error groups", func() {
 			newG := func(
 				fn func() *prioerrgroup.PrioritizedError[ErrorPriorities],
 			) (func(), goroutines.Goroutine) {
-				unblockch, done := chans.Make[Nothing]()
+				unblockch, done := Make[Nothing]()
 				gch := make(chan goroutines.Goroutine)
 				g.Go(func() *prioerrgroup.PrioritizedError[ErrorPriorities] {
 					closegch := sync.OnceFunc(func() { close(gch) })
