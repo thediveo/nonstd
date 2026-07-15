@@ -40,8 +40,6 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/thediveo/safe v0.9.1 h1:qkJMH2rFAC+JkpYSZRzrkOkW+J+4vquOD6iVEn7iFVU=
 github.com/thediveo/safe v0.9.1/go.mod h1:1E2DtH939PSWXk+ztMcSsgDtpYfGaYgmMqHSKQ3WxrU=
-github.com/thediveo/testily v0.9.1 h1:0iq2Vhsn4IIpi0R2Jz1OQZzaA8ATHO1TOyt/MDlSmmo=
-github.com/thediveo/testily v0.9.1/go.mod h1:emxmNUn2O8sv+vw7CGxsm0/MwvR1euCeX8Z/+fRa/r4=
 github.com/thediveo/testily v0.10.0 h1:WhxDrndzAZkAgGi7FgN8aVm2DFgFJ8TzHLfTTV41qH4=
 github.com/thediveo/testily v0.10.0/go.mod h1:emxmNUn2O8sv+vw7CGxsm0/MwvR1euCeX8Z/+fRa/r4=
 github.com/tidwall/gjson v1.18.0 h1:FIDeeyB800efLX89e5a8Y0BNH+LOngJyGrIWxG2FKQY=
