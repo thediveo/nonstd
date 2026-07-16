@@ -46,6 +46,9 @@ compared to all the existing kitchen sinks out there.
   - `Error` returns an "err"-named `slog.Attr` with the passed error value.
 - `xatomic`:
   - `Value[T]` provides atomic _values_ on top of `atomic.Pointer`s.
+- `prioerrgroup`: a `golang.org/x/sync/errgroup` powered priorizized error
+  group, where not the first error "wins", but the one with the highest
+  priority.
 
 # DevContainer
 
