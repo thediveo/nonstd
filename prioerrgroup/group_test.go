@@ -40,14 +40,14 @@ var _ = Describe("prioritized error groups", func() {
 
 	DescribeTable("keeping error priorities",
 		func(prioerrs []*prioerrgroup.PrioritizedError[ErrorPriorities], expected string) {
-			g, _ := prioerrgroup.WithContext[ErrorPriorities](context.Background())
+			grp, _ := prioerrgroup.WithContext[ErrorPriorities](context.Background())
 
 			newG := func(
 				fn func() *prioerrgroup.PrioritizedError[ErrorPriorities],
 			) (func(), goroutines.Goroutine) {
 				unblockch, done := Make[Nothing]()
 				gch := make(chan goroutines.Goroutine)
-				g.Go(func() *prioerrgroup.PrioritizedError[ErrorPriorities] {
+				grp.Go(func() *prioerrgroup.PrioritizedError[ErrorPriorities] {
 					closegch := sync.OnceFunc(func() { close(gch) })
 					defer closegch()
 					gch <- goroutines.Current()
@@ -55,9 +55,9 @@ var _ = Describe("prioritized error groups", func() {
 					<-unblockch
 					return fn()
 				})
-				gort := <-gch
-				Expect(gort).NotTo(BeZero(), "could not determine go routine details")
-				return done, gort
+				g := <-gch
+				Expect(g).NotTo(BeZero(), "could not determine go routine details")
+				return done, g
 			}
 
 			// Kick off a bunch of sub task go routines that eventually return
@@ -65,14 +65,14 @@ var _ = Describe("prioritized error groups", func() {
 			// them in a controlled manner later, in the same sequence as
 			// created.
 			var unblocks []func()
-			var gorts []goroutines.Goroutine
+			var gs []goroutines.Goroutine
 			for _, prioerr := range prioerrs {
 				unblock, gort := newG(func() *prioerrgroup.PrioritizedError[ErrorPriorities] {
 					return prioerr
 				})
 				defer unblock()
 				unblocks = append(unblocks, unblock)
-				gorts = append(gorts, gort)
+				gs = append(gs, gort)
 			}
 
 			// Now it's time to start the go routine that waits for the sub
@@ -83,12 +83,12 @@ var _ = Describe("prioritized error groups", func() {
 			go func() {
 				defer GinkgoRecover()
 				defer errcloser()
-				errch <- g.Wait()
+				errch <- grp.Wait()
 			}()
 
 			// Wait for all sub task go routines to have entered blocking state,
 			// waiting for us to unblock them next.
-			for _, gort := range gorts {
+			for _, gort := range gs {
 				Eventually(goroutines.ByID).WithArguments(gort.ID).
 					Within(2*time.Second).ProbeEvery(10*time.Millisecond).
 					Should(HaveField("State", goroutines.WaitChanReceive),
@@ -98,9 +98,9 @@ var _ = Describe("prioritized error groups", func() {
 			// Unblock one sub task after another, making suring after each
 			// unblock that the affected go routine in fact has terminated
 			// before we proceed further.
-			for idx := range gorts {
+			for idx := range gs {
 				unblocks[idx]()
-				Eventually(goroutines.ByID).WithArguments(gorts[idx].ID).
+				Eventually(goroutines.ByID).WithArguments(gs[idx].ID).
 					Within(2*time.Second).ProbeEvery(10*time.Millisecond).
 					Should(HaveField("ID", BeZero()),
 						"go routine won't terminate")
