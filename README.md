@@ -49,6 +49,9 @@ compared to all the existing kitchen sinks out there.
 - `prioerrgroup`: a `golang.org/x/sync/errgroup` powered priorizized error
   group, where not the first error "wins", but the one with the highest
   priority.
+- `without`: `Error`, `Error2` and `Error3` take the indicated number of values
+  plus an additional `error` value, returning these value _without_ the error.
+  This makes throwing away errors very expressive and without any `_`.
 
 # DevContainer
 

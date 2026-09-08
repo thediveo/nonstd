@@ -11,16 +11,16 @@
     "features": {
         "ghcr.io/devcontainers/features/node:2": {},
         "ghcr.io/devcontainers/features/go:1": {},
-        "ghcr.io/thediveo/devcontainer-features/go-mod-upgrade:1": {},
+        "ghcr.io/thediveo/devcontainer-features/local-pkgsite:1": {
+            "port": "6060"
+        },
         "ghcr.io/thediveo/devcontainer-features/pinact:0": {},
+        "ghcr.io/thediveo/devcontainer-features/go-mod-upgrade:1": {},
         "ghcr.io/thediveo/devcontainer-features/lazygit:0": {},
         "ghcr.io/thediveo/devcontainer-features/gocover:1": {
             "race": true, // enable race detector
             "verbose": true,
             "html": true // generate coverage.html
-        },
-        "ghcr.io/thediveo/devcontainer-features/local-pkgsite:1": {
-            "port": "6060"
         }
     },
     "remoteEnv": {
